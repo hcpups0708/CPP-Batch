@@ -25,7 +25,7 @@ output_string = [
     ['2','0','1'],
      ['11','9','10'],
      ['10000089','9999909','899999910'],
-     ['1111111110','864197532','1'],
+     ['1111111110','864197532','121932631112635269'],
      ['1111111111111111110','864197532864197532','121932631356500531347203169112635269'],
      ['12354','12336','111105'],
      ['1100000000000000000000000000000','900000000000000000000000000000','100000000000000000000000000000000000000000000000000000000000'],
@@ -61,21 +61,21 @@ for file in sorted(os.listdir(basepath)):
                         p = subprocess.Popen([path + ".exe"], stdout=subprocess.PIPE, stdin=subprocess.PIPE, stderr=subprocess.STDOUT)
                         response = p.communicate(str.encode(input))[0].decode("utf-8")    # send the data
                         result_string=''
-                        if re.match('.*a ?\+ ?b ?=?:? ?'+output_string[idx][0]+'.*', response, re.IGNORECASE | re.DOTALL):
+                        if re.match('.*a ?\+ ?b ?=?:? ?'+output_string[idx][0]+r' ?(?:$|(\r\n))', response, re.IGNORECASE | re.DOTALL|re.M):
                             print(input.replace("\n", "_") + " +_correct")
                             result_string+='+'
                             correct_counter += 40
                         else:
                             print(input.replace("\n", "_") + " +_incorrect")
                             result_string+='X'
-                        if re.match('.*a ?- ?b ?=?:? ?'+output_string[idx][1]+'.*', response, re.IGNORECASE | re.DOTALL):
+                        if re.match('.*a ?- ?b ?=?:? ?'+output_string[idx][1]+r' ?(?:$|(\r\n))', response, re.IGNORECASE | re.DOTALL):
                             print(input.replace("\n", "_") + " -_correct")
                             result_string+='-'
                             correct_counter += 40
                         else:
                             print(input.replace("\n", "_") + " -_incorrect")
                             result_string+='X'
-                        if re.match('.*a ?[\*x] ?b ?=?:? ?'+output_string[idx][2]+'.*', response, re.IGNORECASE | re.DOTALL):
+                        if re.match('.*a ?[\*x] ?b ?=?:? ?'+output_string[idx][2]+r' ?(?:$|(\r\n))', response, re.IGNORECASE | re.DOTALL):
                             print(input.replace("\n", "_") + " *_correct")
                             result_string+='*'
                             correct_counter += 20
